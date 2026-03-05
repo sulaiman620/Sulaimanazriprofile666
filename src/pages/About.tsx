@@ -13,7 +13,7 @@ const About = () => {
             <div className="relative w-48 h-48">
               <div className="absolute inset-0 bg-white rounded-full blur-2xl opacity-10 animate-pulse" />
               <img 
-                src="/s6.png" 
+                src={`${import.meta.env.BASE_URL}s6.png`}
                 alt="سليمان العزري" 
                 className="w-48 h-48 object-cover rounded-full border-4 border-white/20 shadow-2xl relative z-10"
               />

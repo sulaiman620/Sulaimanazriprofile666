@@ -50,7 +50,7 @@ const Home = () => {
           <div className="w-full aspect-square bg-white/5 rounded-3xl flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 border-2 border-dashed border-white/10 rounded-3xl animate-[spin_20s_linear_infinite] z-0" />
             <img 
-              src="/s6.png" 
+              src={`${import.meta.env.BASE_URL}s6.png`}
               alt="سليمان العزري" 
               className="w-full h-full object-cover rounded-3xl z-10 relative transition-all duration-500"
             />
