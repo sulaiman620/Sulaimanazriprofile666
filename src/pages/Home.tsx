@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, MessageCircle, CheckCircle2 } from 'lucide-react';
+import { Sparkles, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -54,15 +54,7 @@ const Home = () => {
               alt="سليمان العزري" 
               className="w-full h-full object-cover rounded-3xl z-10 relative transition-all duration-500"
             />
-            <div className="absolute -top-4 -right-4 bg-[#001a33] p-6 rounded-2xl shadow-xl border border-white/10 flex items-center gap-4 z-20">
-              <div className="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400">
-                <CheckCircle2 />
-              </div>
-              <div>
-                <div className="font-bold text-white">حلول ذكية</div>
-                <div className="text-sm text-gray-400">مبنية بأحدث التقنيات</div>
-              </div>
-            </div>
+
           </div>
         </motion.div>
       </div>
