@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MessageCircle, Instagram } from 'lucide-react';
 
 const Contact = () => {
   return (
@@ -38,7 +38,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="mt-12">
+            <div className="mt-12 flex flex-wrap gap-4">
               <a 
                 href="https://api.whatsapp.com/send?phone=96899410903"
                 target="_blank"
@@ -47,6 +47,15 @@ const Contact = () => {
               >
                 <MessageCircle size={24} />
                 تواصل عبر واتساب
+              </a>
+              <a 
+                href="https://www.instagram.com/s6_azri/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-xl font-bold hover:opacity-90 transition-all shadow-lg"
+              >
+                <Instagram size={24} />
+                تواصل عبر إنستغرام
               </a>
             </div>
           </motion.div>

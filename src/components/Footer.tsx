@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Instagram } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -12,13 +12,7 @@ const Footer = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <a href="#" className="w-10 h-10 bg-white/5 text-gray-400 rounded-full flex items-center justify-center hover:bg-white hover:text-[#001a33] transition-all">
-            <Github size={20} />
-          </a>
-          <a href="#" className="w-10 h-10 bg-white/5 text-gray-400 rounded-full flex items-center justify-center hover:bg-white hover:text-[#001a33] transition-all">
-            <Linkedin size={20} />
-          </a>
-          <a href="#" className="w-10 h-10 bg-white/5 text-gray-400 rounded-full flex items-center justify-center hover:bg-white hover:text-[#001a33] transition-all">
+          <a href="https://www.instagram.com/s6_azri/" target="_blank" rel="noreferrer" className="w-10 h-10 bg-white/5 text-gray-400 rounded-full flex items-center justify-center hover:bg-white hover:text-[#001a33] transition-all">
             <Instagram size={20} />
           </a>
         </div>
