@@ -2,22 +2,42 @@ import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Phone, Mail, MessageCircle, Instagram, CheckCircle2 } from 'lucide-react';
 
+const services = [
+  'خدمات الذكاء الاصطناعي',
+  'إنتاج الفيديو والمونتاج',
+  'التصميم الجرافيكي',
+  'تطوير المواقع',
+  'الأتمتة والأنظمة الذكية',
+  'البوتات الذكية',
+  'الاستشارات التقنية',
+  'أخرى',
+];
+
 const Contact = () => {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [form, setForm] = useState({ name: '', phone: '', service: '', message: '' });
   const [sent, setSent] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const { name, email, subject, message } = form;
-    if (!name || !email || !message) return;
-    const mailto = `mailto:alazrisulaimanit@Gmail.com?subject=${encodeURIComponent(subject || 'رسالة جديدة من ' + name)}&body=${encodeURIComponent(`الاسم: ${name}\nالبريد: ${email}\n\n${message}`)}`;
-    window.location.href = mailto;
+    const { name, phone, service, message } = form;
+    if (!name || !message) return;
+    const text =
+`🌟 *طلب خدمة جديد*
+
+👤 *الاسم:* ${name}
+📞 *رقم التواصل:* ${phone || 'لم يُذكر'}
+🛠️ *نوع الخدمة:* ${service || 'لم يُحدد'}
+
+💬 *التفاصيل:*
+${message}`;
+    const url = `https://api.whatsapp.com/send?phone=96899410903&text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
     setSent(true);
-    setForm({ name: '', email: '', subject: '', message: '' });
+    setForm({ name: '', phone: '', service: '', message: '' });
   };
   return (
     <div className="pt-32 pb-20 px-6 min-h-[80vh] bg-[#001a33]">
@@ -85,13 +105,13 @@ const Contact = () => {
               {sent && (
                 <div className="flex items-center gap-3 p-4 bg-emerald-500/20 border border-emerald-500/30 rounded-xl text-emerald-400">
                   <CheckCircle2 size={20} />
-                  <span>تم فتح تطبيق البريد الإلكتروني لإرسال رسالتك!</span>
+                  <span>تم فتح واتساب لإرسال رسالتك!</span>
                 </div>
               )}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-bold text-gray-300 mb-2">الاسم</label>
-                  <input 
+                  <label className="block text-sm font-bold text-gray-300 mb-2">الاسم *</label>
+                  <input
                     type="text"
                     name="name"
                     value={form.name}
@@ -102,33 +122,36 @@ const Contact = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-gray-300 mb-2">البريد الإلكتروني</label>
-                  <input 
-                    type="email"
-                    name="email"
-                    value={form.email}
+                  <label className="block text-sm font-bold text-gray-300 mb-2">رقم التواصل</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
                     onChange={handleChange}
-                    required
                     className="w-full px-4 py-3 rounded-xl bg-[#001a33] border border-white/10 focus:border-white outline-none transition-all text-white"
-                    placeholder="example@mail.com"
+                    placeholder="+968 XXXXXXXX"
+                    dir="ltr"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-300 mb-2">الموضوع</label>
-                <input 
-                  type="text"
-                  name="subject"
-                  value={form.subject}
+                <label className="block text-sm font-bold text-gray-300 mb-2">نوع الخدمة</label>
+                <select
+                  name="service"
+                  value={form.service}
                   onChange={handleChange}
                   className="w-full px-4 py-3 rounded-xl bg-[#001a33] border border-white/10 focus:border-white outline-none transition-all text-white"
-                  placeholder="كيف يمكنني مساعدتك؟"
-                />
+                >
+                  <option value="">-- اختر نوع الخدمة --</option>
+                  {services.map(s => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-300 mb-2">الرسالة</label>
-                <textarea 
-                  rows={4}
+                <label className="block text-sm font-bold text-gray-300 mb-2">تفاصيل الطلب *</label>
+                <textarea
+                  rows={5}
                   name="message"
                   value={form.message}
                   onChange={handleChange}
@@ -137,8 +160,9 @@ const Contact = () => {
                   placeholder="اكتب تفاصيل مشروعك هنا..."
                 ></textarea>
               </div>
-              <button type="submit" className="w-full py-4 bg-white text-[#001a33] rounded-xl font-bold hover:bg-gray-200 transition-all">
-                إرسال الرسالة
+              <button type="submit" className="w-full py-4 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-all flex items-center justify-center gap-3">
+                <MessageCircle size={22} />
+                إرسال عبر واتساب
               </button>
             </form>
           </motion.div>
