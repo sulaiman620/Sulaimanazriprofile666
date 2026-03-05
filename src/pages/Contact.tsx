@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, MessageCircle, Instagram } from 'lucide-react';
+import { Phone, Mail, MessageCircle, Instagram, CheckCircle2 } from 'lucide-react';
 
 const Contact = () => {
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [sent, setSent] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { name, email, subject, message } = form;
+    if (!name || !email || !message) return;
+    const mailto = `mailto:alazrisulaimanit@Gmail.com?subject=${encodeURIComponent(subject || 'رسالة جديدة من ' + name)}&body=${encodeURIComponent(`الاسم: ${name}\nالبريد: ${email}\n\n${message}`)}`;
+    window.location.href = mailto;
+    setSent(true);
+    setForm({ name: '', email: '', subject: '', message: '' });
+  };
   return (
     <div className="pt-32 pb-20 px-6 min-h-[80vh] bg-[#001a33]">
       <div className="max-w-7xl mx-auto">
@@ -65,12 +81,22 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             className="bg-white/5 p-8 md:p-10 rounded-3xl border border-white/10"
           >
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {sent && (
+                <div className="flex items-center gap-3 p-4 bg-emerald-500/20 border border-emerald-500/30 rounded-xl text-emerald-400">
+                  <CheckCircle2 size={20} />
+                  <span>تم فتح تطبيق البريد الإلكتروني لإرسال رسالتك!</span>
+                </div>
+              )}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-bold text-gray-300 mb-2">الاسم</label>
                   <input 
-                    type="text" 
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-3 rounded-xl bg-[#001a33] border border-white/10 focus:border-white outline-none transition-all text-white"
                     placeholder="أدخل اسمك"
                   />
@@ -78,7 +104,11 @@ const Contact = () => {
                 <div>
                   <label className="block text-sm font-bold text-gray-300 mb-2">البريد الإلكتروني</label>
                   <input 
-                    type="email" 
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-3 rounded-xl bg-[#001a33] border border-white/10 focus:border-white outline-none transition-all text-white"
                     placeholder="example@mail.com"
                   />
@@ -87,7 +117,10 @@ const Contact = () => {
               <div>
                 <label className="block text-sm font-bold text-gray-300 mb-2">الموضوع</label>
                 <input 
-                  type="text" 
+                  type="text"
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 rounded-xl bg-[#001a33] border border-white/10 focus:border-white outline-none transition-all text-white"
                   placeholder="كيف يمكنني مساعدتك؟"
                 />
@@ -96,11 +129,15 @@ const Contact = () => {
                 <label className="block text-sm font-bold text-gray-300 mb-2">الرسالة</label>
                 <textarea 
                   rows={4}
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  required
                   className="w-full px-4 py-3 rounded-xl bg-[#001a33] border border-white/10 focus:border-white outline-none transition-all text-white resize-none"
                   placeholder="اكتب تفاصيل مشروعك هنا..."
                 ></textarea>
               </div>
-              <button className="w-full py-4 bg-white text-[#001a33] rounded-xl font-bold hover:bg-gray-200 transition-all">
+              <button type="submit" className="w-full py-4 bg-white text-[#001a33] rounded-xl font-bold hover:bg-gray-200 transition-all">
                 إرسال الرسالة
               </button>
             </form>
